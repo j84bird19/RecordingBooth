@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#121318" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Mic Check" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <title>Recording Booth / Mic Check</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Recording Booth <span>/ Mic Check</span></h1>
+      <p class="subtitle">Fresh DAW core · loop + adjustable FX + restore + install fix</p>
+    </div>
+    <div class="header-actions">
+      <button id="installAppBtn" class="btn install" hidden>⬇ Install App</button>
+      <div class="status-pill" id="statusPill">Idle</div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="transport panel">
+      <div class="transport-row">
+        <button id="enableAudioBtn" class="btn primary">Enable Audio / Mic</button>
+        <button id="recordModeBtn" class="btn record">● Record Off</button>
+        <button id="rewindBtn" class="btn">⏮ Rewind</button>
+        <button id="playBtn" class="btn play">▶ Play</button>
+        <button id="stopBtn" class="btn stop">■ Stop</button>
+      </div>
+      <div class="transport-row small">
+        <label>Song <input id="songNameInput" value="MicCheckSong" /></label>
+        <span id="timeReadout">0:00.00</span>
+        <span class="hint">R arms a vocal track. Record mode + Play starts recording.</span>
+      </div>
+    </section>
+
+    <section class="panel loop-panel">
+      <div class="section-title">Loop / Cycle Tool</div>
+      <div class="transport-row loop-row">
+        <button id="loopToggleBtn" class="btn loop">🔁 Loop Off</button>
+        <label>Loop Start <input id="loopStartInput" type="number" min="0" step="0.01" value="0.00" /></label>
+        <label>Loop End <input id="loopEndInput" type="number" min="0" step="0.01" value="8.00" /></label>
+        <button id="setLoopStartBtn" class="btn tiny">Start = Playhead</button>
+        <button id="setLoopEndBtn" class="btn tiny">End = Playhead</button>
+        <button id="loopFromEditBtn" class="btn tiny">Loop Selected Range</button>
+        <button id="clearLoopBtn" class="btn tiny">Clear Loop</button>
+      </div>
+      <p class="hint">Loop is playback/editing only in this version. Recording automatically turns loop off to keep takes clean.</p>
+    </section>
+
+    <section class="panel overview-panel">
+      <div class="section-title">Song Overview</div>
+      <div id="timeline" class="timeline"></div>
+    </section>
+
+    <section class="panel track-panel">
+      <div class="section-title">Tracks</div>
+      <div id="tracks"></div>
+    </section>
+
+    <section class="panel edit-panel">
+      <div class="section-title">Selected Track Edit</div>
+      <div class="edit-selected" id="editTrackName">Vocal 1 selected</div>
+      <div class="edit-grid">
+        <label>Start <input id="editStartInput" type="number" min="0" step="0.01" value="0.00" /></label>
+        <label>End <input id="editEndInput" type="number" min="0" step="0.01" value="0.00" /></label>
+        <button id="setEditStartBtn" class="btn tiny">Start = Playhead</button>
+        <button id="setEditEndBtn" class="btn tiny">End = Playhead</button>
+        <button id="nudgeLeftBtn" class="btn tiny">Move -0.10s</button>
+        <button id="nudgeRightBtn" class="btn tiny">Move +0.10s</button>
+        <button id="deleteRangeBtn" class="btn tiny danger">Delete Selected Part</button>
+        <button id="keepRangeBtn" class="btn tiny">Keep Only Selected Part</button>
+        <button id="clearTrackBtn" class="btn tiny danger">Clear Whole Vocal Track</button>
+      </div>
+      <p class="hint">Click a track to highlight it, then use Start/End to edit that selected vocal range. Delete Selected Part silences the range. Keep Only trims the take to that range.</p>
+    </section>
+
+    <section class="panel install-panel" id="installPanel">
+      <div class="section-title">Install App</div>
+      <div class="transport-row">
+        <button id="installAppBtnPanel" class="btn install" hidden>⬇ Install Recording Booth</button>
+        <span id="installStatus" class="hint">Open from HTTPS/GitHub Pages. On Android Chrome, use the install button here or Chrome menu → Add to Home screen.</span>
+      </div>
+    </section>
+
+    <section class="panel export-panel">
+      <div class="section-title">Project / Export</div>
+      <div class="transport-row">
+        <button id="saveProjectBtn" class="btn">Save Project</button>
+        <button id="loadProjectBtn" class="btn">Load Project</button>
+        <button id="exportDryBtn" class="btn">Export Dry Stems</button>
+        <button id="exportMixBtn" class="btn">Export Rough Mix</button>
+      </div>
+      <p class="hint">Dry stems export from 0:00 so they line up in Logic.</p>
+    </section>
+  </main>
+
+  <input id="musicFile1" type="file" accept="audio/*" hidden />
+  <input id="musicFile2" type="file" accept="audio/*" hidden />
+
+  <script src="app.js"></script>
+</body>
+</html>
